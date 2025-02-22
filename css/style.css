@@ -79,6 +79,9 @@ body{
 	}
 }
 
+@media (max-width: 479.98px){ /* маленькие мобильные*/
+
+}
 /* HEADER */
 .header { /*шапка будет по верх*/
 	position: absolute;
@@ -93,14 +96,19 @@ body{
 	align-items: center; /*выравнивание всех объектов по центру*/
 }
 .header__logo {
+	position: relative;
+	z-index: 5;
 }
 .header__menu {
 	flex: 1 1 auto; /*позволит меню занимать всю ширину в блоке*/
 }
 .header__button {
+	position: relative;
+	z-index: 5;
 	flex: 0 0 252px; /*сам блок с кнопкой будет фиксированной шириной (по макету 252px) из-за декора на заднем фоне*/
 	display: flex;
 	justify-content: flex-end; /*прижать кнопку вправо*/
+	align-items: center; /*это ради бургера чтобы он распологался по центру*/
 }
 
 /* -------------------------------------- */
@@ -124,7 +132,9 @@ body{
 	line-height: 1.2; /*по макету 12px; 12 line-height / 10 font-size = 1.2*/
 	color: #000;
 }
-
+.menu__link:hover{
+	text-decoration: underline;
+}
 /* -------------------------------------- */
 .button {
 	display: inline-block; /*можно и недобавлять, потому что кнопка flex элемент, на всякий случай добавить*/
@@ -162,24 +172,233 @@ body{
 		margin: 0px 30px 0px 0px;
 	}
 }
-
+@media (max-width: 767.98px){
+	.menu__body{
+		position: fixed; /*меню будет фиксированно по верх всего*/
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		overflow: auto /*если будет много пунктов меню, тогда появится скролл*/;
+		background-color: #eee;
+		padding: 90px 15px 30px 15px;
+		transition: left .3s ease 0s;
+	}
+	.header:target .menu__body{
+		left: 0;
+	}
+	.header:target .menu__body:before{/*прокладка между header и меню (съузить по высоте экран и прокрутить скроллом меню)*/
+		content: '';
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 80px;
+		width: 100%;
+		background-color: #fff;
+	}
+	.menu__list{ /*отцентрировать пункты меню*/
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.menu__item{
+		margin: 0px 0px 25px 0px;
+	}
+	.menu__item:last-child{
+		margin-bottom: 0;
+	}
+	.menu__link{
+		font-size: 20px;
+	}
+}
+@media (max-width: 479.98px){
+	.header__logo{ /*скрыть надпись в логотипе*/
+		flex: 0 0 40px; /*40px - размер изображения в логотипе*/
+		overflow: hidden;
+	}
+}
 /* -------------------------------------- */
 /* burger */
+.close-icon-menu,
 .icon-menu{
-	position: relative;
-	flex: 0 0 30px; /* т.к. бургер находится внутри flex блока */
-	height: 18px;
+	display: none;
+}
+@media (max-width: 767.98px){
+	.icon-menu{
+		position: relative;
+		flex: 0 0 30px; /* т.к. бургер находится внутри flex блока */
+		height: 18px;
+		display: flex;
+		flex-direction: column; /* полоски расположаться вертикально */
+		justify-content: space-between;
+		margin: 0px 0px 0px 20px;
+	}
+	.icon-menu::before, /*полоски*/
+	.icon-menu::after{
+		content: '';
+		background-color: #000;
+		height: 2px;
+	}
+	.icon-menu span{
+		height: 2px; /*ширина полоски*/
+		background-color: #000;
+	}
+	.close-icon-menu{
+		flex: 0 0 30px;
+		height: 18px;
+		position: relative;
+		margin: 0px 0px 0px 20px;
+	}
+	.close-icon-menu::before,
+	.close-icon-menu::after{
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		background-color: #000;
+		height: 2px;
+	}
+	.close-icon-menu::before{
+		transform: rotate(45deg);
+	}
+	.close-icon-menu::after{
+		transform: rotate(-45deg);
+	}
+	.header:target .icon-menu{
+		display: none;
+	}
+	.header:target .close-icon-menu{
+		display: flex;
+	}
+}
+
+/*---------------------------------------------------------------------*/
+.block-text {
+}
+.block-text__title {
+	font-weight: 700;
+	font-size: 44px;
+	line-height: 126%;
+	color: #000;
+}
+.block-text__title:not(:last-child){
+	margin: 0px 0px 12px 0px;
+}
+.block-text__title span {
+	color: #ec5863;
+}
+.block-text__title--blue span {
+	color: #4285f4;
+}
+.block-text__text {
+	line-height: 138.5%;
+}
+.block-text__text:not(:last-child){
+	margin: 0px 0px 24px 0px;
+}
+.block-text__button {
+}
+@media (max-width: 767.98px){
+	.block-text__title{
+		font-size: 34px;
+	}
+}
+/*---------------------------------------------------------------------*/
+.get-started {
+	background-color: #FAFBFD;
+	
+}
+.get-started__container {
+	padding: 150px 15px 50px 15px;
 	display: flex;
-	flex-direction: column; /* полоски расположаться вертикально */
-	justify-content: space-between;
+	flex-wrap: wrap;
+	align-items: center;
+	position: relative;
 }
-.icon-menu::before, /*полоски*/
-.icon-menu::after{
-	content: "";
-	border-color: #000;
-	height: 2px;
+.get-started__container:before{
+	position: absolute;
+	content: '';
+	width: 100vw; /*декор будет на всю ширину вьюпорта*/
+	height: 100%;
+	top: 0;
+	right: 267px;
+	transform: translate(100%, 0px);
+	background-color: #ec5863;
+	border-radius: 30px 0 0 30px;
 }
-.icon-menu{
-	height: 2px; /*ширина полоски*/
-	background-color: #000;
+.get-started__content {
+	flex: 0 1 48%; /*по макету этот блок меньше по ширине*/
+	padding: 0px 20px; /*отступы безопасности*/
+}
+.get-started__block-text {
+	max-width: 410px; /*по макету у этого блока такая ширина*/
+}
+.get-started__video {
+	flex: 1 1 100%;
+	padding: 60px 0px 0px 20px;
+}
+.get-started__image {
+	flex: 0 1 52%; /*по макету этот блок больше по ширине*/
+	position: relative;
+	z-index: 2;
+}
+.get-started__image img{
+	max-width: 100%;
+}
+
+.video-get-started {
+	display: inline-flex;
+	align-items: center;
+}
+.video-get-started__icon {
+	flex: 0 0 44px; /*ширина иконки 44px*/
+}
+.video-get-started__body {
+	padding: 0px 0px 0px 12px;
+}
+.video-get-started__title {
+	color: #B0B0B0;
+	font-size: 13px;
+	line-height: 126%;
+	letter-spacing: 1.5px;
+}
+.video-get-started__title:not(:last-child){
+	margin: 0px 0px 5px 0px;
+}
+.video-get-started__text {
+	font-size: 9px;
+	text-transform: uppercase;
+	color: #000;
+	line-height: 126%;
+	letter-spacing: 2px;
+}
+@media (max-width: 991.98px){
+	.get-started__container:before{
+		right: 185px;
+		border-radius: 20px 0 0 20px;
+	}
+}
+@media (max-width: 767.98px){
+	.get-started__container{
+		padding: 100px 15px 30px 15px;
+	}
+	.get-started__container:before{
+		display: none;
+	}
+	.get-started__block-text {
+		max-width: none;
+	}
+	.get-started__content {
+		flex: 1 1 100%;
+		padding: 0;
+	}
+	.get-started__image{
+		flex: 1 1 100%;
+		text-align: center;
+		padding: 30px 0;
+	}
+	.get-started__video{
+		padding: 0;
+	}
 }
