@@ -3,3 +3,11 @@ https://www.figma.com/community/portfolio-templates
 https://www.figma.com/design/m7TD7sGomo9xWyOMpRGh56/Gocorna-Website-(Community)?node-id=12-10&p=f&t=zFpyJ4X96JgVIaLH-0
 
 https://www.youtube.com/watch?v=sohdv21BVNI&t=179s
+
+
+Подготовительные работы
+
+1. Шрифты (семейство, размер, цвет)
+2. Ограничивающий контейнер (размер)
+3. С помощью линейки - обрисовать блоки (высоту, ширину)
+3.1. Далее анализ конкретного блока
